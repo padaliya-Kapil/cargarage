@@ -1,0 +1,28 @@
+# One-click demo deploy on Render: https://render.com/deploy?repo=https://github.com/padaliya-Kapil/cargarage
+# Free plan has no persistent disk: data resets on every restart/redeploy (fine for a demo —
+# SEED_DEMO refills it). For production, use a paid plan with a disk mounted at DATA_DIR.
+services:
+  - type: web
+    name: chobbar-garage
+    runtime: node
+    plan: free
+    buildCommand: echo "No build step"
+    startCommand: npm start
+    healthCheckPath: /api/services
+    envVars:
+      - key: NODE_VERSION
+        value: 22.22.0
+      - key: DATA_DIR
+        value: ./data
+      - key: ADMIN_EMAIL
+        value: owner@chobbargarage.com
+      - key: ADMIN_PASSWORD
+        generateValue: true
+      - key: COOKIE_SECURE
+        value: "1"
+      - key: TRUST_PROXY
+        value: "1"
+      - key: SEED_DEMO
+        value: "1"
+      - key: TZ
+        value: America/Vancouver

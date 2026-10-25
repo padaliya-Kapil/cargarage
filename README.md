@@ -82,6 +82,20 @@ public/              Website (index.html, css, js, img) and CRM (public/admin/)
 test/api.test.js     End-to-end API tests
 ```
 
+## Client demo (free, about 5 minutes)
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/padaliya-Kapil/cargarage)
+
+1. Click the button and sign in to Render with GitHub. Render reads `render.yaml`.
+2. Choose the branch to deploy and click **Apply**. The site goes live at `https://chobbar-garage-xxxx.onrender.com`.
+3. Find the CRM password under **Environment → `ADMIN_PASSWORD`** in the Render dashboard. Sign in at `/admin/` as `owner@chobbargarage.com`.
+
+`SEED_DEMO=1` fills the CRM with sample customers, a week of bookings and revenue, so the client sees a busy workshop instead of an empty screen. It also sends `X-Robots-Tag: noindex` so the demo never shows up on Google. Notes about Render's free plan:
+- The service sleeps after 15 minutes idle, so the first visit takes about 30 seconds. **Open it once just before showing the client.**
+- The free plan has no disk, so data resets on restart and the demo data refills. That's fine for a demo, not for real use.
+
+A `Dockerfile` is included as well, for Fly.io, Railway or any VPS (`docker run -p 3000:3000 -v chobbar:/data -e ADMIN_PASSWORD=... chobbar`).
+
 ## Deploying
 
 The app needs any host that runs Node 22.13+ and keeps a **persistent disk** for `DATA_DIR`, because that's where the SQLite file lives. Good options:

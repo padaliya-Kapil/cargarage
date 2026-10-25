@@ -30,7 +30,18 @@ if (created) {
   if (created.password) console.log(`  Temporary password:    ${created.password}\n  Sign in at /admin/ and change it under Settings.\n`);
 }
 
-const server = http.createServer(createApp(db, { notify }));
+if (process.env.SEED_DEMO === '1' && require('./src/demo').seedDemo(db)) console.log('  Demo data seeded.');
+
+const handler = createApp(db, { notify });
+// Demo deployments stay out of search results so placeholder details never get indexed.
+const server = http.createServer(
+  process.env.SEED_DEMO === '1'
+    ? (req, res) => {
+        res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+        handler(req, res);
+      }
+    : handler,
+);
 server.keepAliveTimeout = 65_000;
 const port = Number(process.env.PORT) || 3000;
 server.listen(port, () => console.log(`Chobbar Garage running on http://localhost:${port}  (CRM: /admin/)`));
