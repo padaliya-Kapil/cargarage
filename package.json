@@ -1,0 +1,15 @@
+{
+  "name": "chobbar-garage",
+  "version": "1.0.0",
+  "description": "Chobbar Garage — car repair website with built-in booking CRM",
+  "private": true,
+  "type": "commonjs",
+  "main": "server.js",
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch server.js",
+    "test": "node --disable-warning=ExperimentalWarning --test test/*.test.js"
+  },
+  "license": "UNLICENSED"
+}
